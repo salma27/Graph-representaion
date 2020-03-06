@@ -113,7 +113,7 @@ class graph{
     }
     public String getAdjMatrix(){
         boolean[][] mat = this.adjMatrix();
-        String s = " ";
+        String s = "  ";
         for (int j = 0; j < this.vNum; j++)
             s = s + vertices[j].getName() + " ";
         s += '\n';
@@ -131,13 +131,12 @@ class graph{
     private int[][] incMat(){
         int[][] mat = new int[this.vNum][this.eNum];
         for (int i = 0; i < this.vNum; i++) {
-            for(edge e: edges){
+            for(int j = 0; j < this.eNum; j++){
+                edge e = edges[j];
                 int src = e.src;
                 int dst = e.dst;
-                if(i == src)
-                    mat[i][dst] += 1;
-                if(i == dst)
-                    mat[src][i] += -1;
+                mat[src][dst] = -1;
+                mat[dst][dst] = 1;
             }
             
         }
@@ -145,7 +144,7 @@ class graph{
     }
     public String getIncMat(){
         int[][] mat = this.incMat();
-        String s = " ";
+        String s = "  ";
         for (int j = 0; j < this.eNum; j++)
             s = s + "E" + j + " ";
         s += '\n';
