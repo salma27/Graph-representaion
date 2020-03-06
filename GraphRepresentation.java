@@ -25,6 +25,12 @@ public class GraphRepresentation {
             g.addEdge(v1, v2, i);   
         }
         sc.close();
+        String s = g.getAdjMatrix();
+        System.out.println("AdjMatrix: \n" + s);
+        s = g.getIncMat();
+        System.out.println("IncMatrix: \n" + s);
+        s = g.adjList();
+        System.out.println("AdjList: \n" + s);
     }
     
 
