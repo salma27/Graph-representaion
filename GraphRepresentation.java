@@ -1,17 +1,16 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GraphRepresentation {
 
     public static void main(String[] args) {
-        graph g = new graph();
         Scanner sc = new Scanner(System.in);
         String v1 = "", v2 = "";
         System.out.println("Enter number of vertices: ");
-        g.vNum = sc.nextInt();
+        int v = sc.nextInt();
         System.out.println("Enter number of edges: ");
-        g.eNum = sc.nextInt();
+        int e = sc.nextInt();
+        graph g = new graph(v, e);
         for (int i = 0; i < g.vNum; i++) {
             System.out.println("Enter vertex name: ");
             v1 = sc.next();
@@ -58,9 +57,15 @@ class edge{
     }
 }
 class graph{
-    public vertex[] vertices = new vertex[1000];
-    public edge[] edges = new edge[1000];
+    public vertex[] vertices;
+    public edge[] edges;
     public int vNum = 0, eNum = 0;
+    graph(int v, int e){
+        vertices = new vertex[v];
+        edges = new edge[e];
+        this.eNum = e;
+        this.vNum = v;
+    }
     public int getVertexIndex(String name){
         for(int i = 0; i < vNum; ++i){
             String n = vertices[i].getName();
@@ -93,7 +98,8 @@ class graph{
     public String adjList(){
         String s = "";
         for(vertex v: vertices){
-            s = s + this.adjList(v.getID()) + '\n';
+            String temp = this.adjList(v.getID());
+            s = s + v.getName() + ": " + this.adjList(v.getID()) + '\n';
         }
         return s;
     }
@@ -108,9 +114,13 @@ class graph{
     }
     public String getAdjMatrix(){
         boolean[][] mat = this.adjMatrix();
-        String s = "";
+        String s = " ";
+        for (int j = 0; j < this.vNum; j++)
+            s = s + vertices[j].getName() + " ";
+        s += '\n';
         for (int i = 0; i < this.vNum; i++) {
-            for (int j = 0; j < this.vNum; j++)
+            s = s + vertices[i].getName() + " ";
+                for (int j = 0; j < this.vNum; j++)
                 if(mat[i][j])
                     s = s + "1 ";
                 else
@@ -136,9 +146,13 @@ class graph{
     }
     public String getIncMat(){
         int[][] mat = this.incMat();
-        String s = "";
+        String s = " ";
+        for (int j = 0; j < this.eNum; j++)
+            s = s + "E" + j + " ";
+        s += '\n';
         for (int i = 0; i < this.vNum; i++) {
-            for (int j = 0; j < this.vNum; j++)
+            s = s + vertices[i].getName() + " ";
+            for (int j = 0; j < this.eNum; j++)
                 s = s + mat[i][j] + " ";
             s = s + '\n';
         }
