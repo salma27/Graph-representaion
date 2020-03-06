@@ -1,45 +1,32 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GraphRepresentation {
 
-    public static vertex[] vertices = new vertex[1000];
-    public static int vNum = 0, eNum = 0;
-    public static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
+        graph g = new graph();
+        Scanner sc = new Scanner(System.in);
         String v1 = "", v2 = "";
         System.out.println("Enter number of vertices: ");
-        vNum = sc.nextInt();
+        g.vNum = sc.nextInt();
         System.out.println("Enter number of edges: ");
-        eNum = sc.nextInt();
-        for (int i = 0; i < vNum; i++) {
+        g.eNum = sc.nextInt();
+        for (int i = 0; i < g.vNum; i++) {
             System.out.println("Enter vertex name: ");
             v1 = sc.next();
-            vertices[i] = new vertex(i, v1);
+            g.addVertex(i, v1);
         }
-        for (int i = 0; i < eNum; i++) {
+        for (int i = 0; i < g.eNum; i++) {
             System.out.println("Enter source node: ");            
             v1 = sc.next();
-            int index1 = getVertexIndex(v1);
             System.out.println("Enter distination node: ");
             v2 = sc.next();
-            int index2 = getVertexIndex(v2); 
-            if(index1 == -1 || index2 == -1)
-                break;
-            setEdge(index1, index2);   
+            g.addEdge(v1, v2);   
         }
+        sc.close();
     }
-    public static int getVertexIndex(String name){
-        for(int i = 0; i < vNum; ++i){
-            String n = vertices[i].getName();
-            if(n.equals(name))
-                return vertices[i].ID;
-        }
-        return -1;
-    }
-    public static void setEdge(int v1, int v2){
-        vertex v = vertices[v1];
-        v.edges[v2] += 1; 
-    }
+    
 
 
 }
@@ -47,7 +34,7 @@ public class GraphRepresentation {
 class vertex{
     int ID;
     String name;
-    int[] edges = new int[1000]; 
+    ArrayList<Integer> adj = new ArrayList<Integer>();
     vertex(){}
     vertex(int x, String n) {
         ID = x;
@@ -55,4 +42,43 @@ class vertex{
     }
     public int getID(){return ID;} 
     public String getName(){return name;} 
+}
+class edge{
+    int src;
+    int dst;
+    edge(int s, int d){
+        src = s;
+        dst = d;
+    }
+}
+class graph{
+    public vertex[] vertices = new vertex[1000];
+    public int vNum = 0, eNum = 0;
+    public int getVertexIndex(String name){
+        for(int i = 0; i < vNum; ++i){
+            String n = vertices[i].getName();
+            if(n.equals(name))
+                return vertices[i].ID;
+        }
+        return -1;
+    }
+    public void addEdge(String v1, String v2){
+        int index1 = getVertexIndex(v1);
+        int index2 = getVertexIndex(v2); 
+        if(index1 == -1 || index2 == -1)
+            return;
+        vertex v = vertices[index1];
+        v.adj.add(index2); 
+    }
+    public void addVertex(int ID, String name){
+        vertices[ID] = new vertex(ID, name);
+    }
+    public vertex[] adjList(){
+        return vertices;
+    }
+    public int[][] adjMatrix(){
+        int[][] mat = new int[this.vNum][this.vNum]
+        return
+    }
+
 }
