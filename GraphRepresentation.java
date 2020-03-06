@@ -22,7 +22,7 @@ public class GraphRepresentation {
             v1 = sc.next();
             System.out.println("Enter distination node: ");
             v2 = sc.next();
-            g.addEdge(v1, v2);   
+            g.addEdge(v1, v2, i);   
         }
         sc.close();
     }
@@ -53,6 +53,7 @@ class edge{
 }
 class graph{
     public vertex[] vertices = new vertex[1000];
+    public edge[] edges = new edge[1000];
     public int vNum = 0, eNum = 0;
     public int getVertexIndex(String name){
         for(int i = 0; i < vNum; ++i){
@@ -62,23 +63,80 @@ class graph{
         }
         return -1;
     }
-    public void addEdge(String v1, String v2){
+    public void addEdge(String v1, String v2, int i){
         int index1 = getVertexIndex(v1);
         int index2 = getVertexIndex(v2); 
         if(index1 == -1 || index2 == -1)
             return;
         vertex v = vertices[index1];
         v.adj.add(index2); 
+        edges[i] = new edge(index1, index2);
+
     }
     public void addVertex(int ID, String name){
         vertices[ID] = new vertex(ID, name);
     }
-    public vertex[] adjList(){
-        return vertices;
+    private String adjList(int ID){
+        ArrayList<Integer> adj = vertices[ID].adj;
+        String s = "";
+        for(int index: adj){
+            s = s + vertices[index].getName() + "| ";
+        }
+        return s;
     }
-    public int[][] adjMatrix(){
-        int[][] mat = new int[this.vNum][this.vNum]
-        return
+    public String adjList(){
+        String s = "";
+        for(vertex v: vertices){
+            s = s + this.adjList(v.getID()) + '\n';
+        }
+        return s;
+    }
+    private boolean[][] adjMatrix(){
+        boolean[][] mat = new boolean[this.vNum][this.vNum];
+        for(edge e: edges){
+            int src = e.src;
+            int dst = e.dst;
+            mat[src][dst] = true;
+        }
+        return mat;
+    }
+    public String getAdjMatrix(){
+        boolean[][] mat = this.adjMatrix();
+        String s = "";
+        for (int i = 0; i < this.vNum; i++) {
+            for (int j = 0; j < this.vNum; j++)
+                if(mat[i][j])
+                    s = s + "1 ";
+                else
+                    s = s + "0 ";
+            s = s + '\n';
+        }
+        return s;
+    }
+    private int[][] incMat(){
+        int[][] mat = new int[this.vNum][this.eNum];
+        for (int i = 0; i < this.vNum; i++) {
+            for(edge e: edges){
+                int src = e.src;
+                int dst = e.dst;
+                if(i == src)
+                    mat[i][dst] += 1;
+                if(i == dst)
+                    mat[src][i] += -1;
+            }
+            
+        }
+        return mat;
+    }
+    public String getIncMat(){
+        int[][] mat = this.incMat();
+        String s = "";
+        for (int i = 0; i < this.vNum; i++) {
+            for (int j = 0; j < this.vNum; j++)
+                s = s + mat[i][j] + " ";
+            s = s + '\n';
+        }
+        return s;
     }
 
 }
