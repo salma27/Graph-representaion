@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GraphRepresentation {
@@ -102,30 +103,37 @@ class graph{
         }
         return s;
     }
-    private boolean[][] adjMatrix(){
-        boolean[][] mat = new boolean[this.vNum][this.vNum];
+    private int[][] adjMatrix(){
+        int[][] mat = new int[this.vNum][this.vNum];
         for(edge e: edges){
             int src = e.src;
             int dst = e.dst;
-            mat[src][dst] = true;
+            mat[src][dst] = 1;
         }
         return mat;
     }
     public String getAdjMatrix(){
-        boolean[][] mat = this.adjMatrix();
+        int[][] mat = this.adjMatrix();
         String s = "  ";
-        for (int j = 0; j < this.vNum; j++)
-            s = s + vertices[j].getName() + " ";
-        s += '\n';
-        for (int i = 0; i < this.vNum; i++) {
-            s = s + vertices[i].getName() + " ";
-                for (int j = 0; j < this.vNum; j++)
-                if(mat[i][j])
-                    s = s + "1 ";
-                else
-                    s = s + "0 ";
-            s = s + '\n';
-        }
+        // for (int j = 0; j < this.vNum; j++)
+        //     s = s + vertices[j].getName() + " ";
+        // s += '\n';
+        // for (int i = 0; i < this.vNum; i++) {
+        //     s = s + vertices[i].getName() + " ";
+        //         for (int j = 0; j < this.vNum; j++)
+        //         if(mat[i][j])
+        //             s = s + "1 ";
+        //         else
+        //             s = s + "0 ";
+        //     s = s + '\n';
+        // }
+        //System.out.println(Arrays.deepToString(mat));
+        //s = Arrays.deepToString(mat).replace("], ", "]\n").replace("[[", "[").replace("]]", "]");
+        //System.out.println(Arrays.deepToString(mat));
+        s = Arrays.deepToString(mat)
+        .replace("],","\n")
+        .replace(",","\t| ")
+        .replaceAll("[\\[\\]]", " ");
         return s;
     }
     private int[][] incMat(){
@@ -145,15 +153,21 @@ class graph{
     public String getIncMat(){
         int[][] mat = this.incMat();
         String s = "  ";
-        for (int j = 0; j < this.eNum; j++)
-            s = s + "E" + j + " ";
-        s += '\n';
-        for (int i = 0; i < this.vNum; i++) {
-            s = s + vertices[i].getName() + " ";
-            for (int j = 0; j < this.eNum; j++)
-                s = s + mat[i][j] + " ";
-            s = s + '\n';
-        }
+        // for (int j = 0; j < this.eNum; j++)
+        //     s = s + "E" + j + " ";
+        // s += '\n';
+        // for (int i = 0; i < this.vNum; i++) {
+        //     s = s + vertices[i].getName() + " ";
+        //     for (int j = 0; j < this.eNum; j++)
+        //         s = s + mat[i][j] + " ";
+        //     s = s + '\n';
+        // }
+        //s = Arrays.deepToString(mat).replace("], ", "]\n").replace("[[", "[").replace("]]", "]");
+        //System.out.println(Arrays.deepToString(mat));
+        s = Arrays.deepToString(mat)
+        .replace("],","\n")
+        .replace(",","\t| ")
+        .replaceAll("[\\[\\]]", " ");
         return s;
     }
 
