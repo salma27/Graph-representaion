@@ -98,7 +98,6 @@ class graph{
     public String adjList(){
         String s = "";
         for(vertex v: vertices){
-            String temp = this.adjList(v.getID());
             s = s + v.getName() + ": " + this.adjList(v.getID()) + '\n';
         }
         return s;
