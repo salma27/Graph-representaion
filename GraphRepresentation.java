@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -31,6 +32,8 @@ public class GraphRepresentation {
         System.out.println("IncMatrix: \n" + s);
         s = g.adjList();
         System.out.println("AdjList: \n" + s);
+        System.out.println("Representation Matrix: \n" );
+        g.printRepresentationMatrix();
     }
     
 
@@ -67,6 +70,35 @@ class graph{
         this.eNum = e;
         this.vNum = v;
     }
+    public int [][] buildRepresentationMatrix()
+    {
+       int representionMatrix [][] = new int [vertices.length][vertices.length];
+       for (int i=0 ; i<edges.length ; i++)
+        {
+            representionMatrix[edges[i].src][edges[i].dst]++;
+        }
+       return representionMatrix;
+    }
+    public void printRepresentationMatrix( )
+    {
+        int [][] representionMatrix = buildRepresentationMatrix();
+        System.out.println("The Representation Matrix");
+        
+        for(int i=0 ;i<vertices.length ; i++)
+              System.out.print("    "+vertices[i].name);
+        
+        System.out.println();
+        for(int i=0 ;i<vertices.length ; i++)
+        {
+            System.out.print(vertices[i].name+ "  ");
+            for(int j=0 ;j<vertices.length ; j++)
+            {
+                System.out.print(representionMatrix[i][j]+ "     ");
+            }
+            System.out.println();
+        }
+    }
+    
     public int getVertexIndex(String name){
         for(int i = 0; i < vNum; ++i){
             String n = vertices[i].getName();
