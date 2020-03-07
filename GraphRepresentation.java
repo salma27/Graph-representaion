@@ -1,11 +1,14 @@
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class GraphRepresentation {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         Scanner sc = new Scanner(System.in);
         String v1 = "", v2 = "";
         System.out.println("Enter number of vertices: ");
@@ -35,12 +38,25 @@ public class GraphRepresentation {
         System.out.println("Representation Matrix: \n" );
         g.printRepresentationMatrix();
         
-        
+        fileWriter(g.vertices , g.edges);
         
         
     }
     
-
+	public static void fileWriter(vertex[] vertices, edge[] edges) throws FileNotFoundException, UnsupportedEncodingException{
+		PrintWriter writer = new PrintWriter("C:\\\\Users\\\\lenovo\\\\Desktop\\\\graphInfo.txt", "UTF-8");
+		writer.println(vertices.length);
+		for(int k = 0 ; k < vertices.length ; k++)
+			writer.println(vertices[k]);
+		writer.println(edges.length);
+		for(int i = 0 ; i < edges.length; i++) {
+			if(i < edges.length - 1)
+				writer.println(edges[i]);
+			else
+				writer.print(edges[i]);
+		}
+		writer.close();
+	}
 
 }
 
