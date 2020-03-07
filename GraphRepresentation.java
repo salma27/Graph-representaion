@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class GraphRepresentation {
 
-    public static void main(String[] args) {
+    public void main(GUI gui) {
         Scanner sc = new Scanner(System.in);
         String v1 = "", v2 = "";
         System.out.println("Enter number of vertices: ");
