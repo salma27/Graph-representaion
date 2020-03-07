@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class GraphRepresentation {
 
-    public void main(GUI gui) {
+	public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String v1 = "", v2 = "";
         System.out.println("Enter number of vertices: ");
@@ -34,6 +34,10 @@ public class GraphRepresentation {
         System.out.println("AdjList: \n" + s);
         System.out.println("Representation Matrix: \n" );
         g.printRepresentationMatrix();
+        
+        
+        
+        
     }
     
 
