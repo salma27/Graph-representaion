@@ -46,14 +46,20 @@ public class GraphRepresentation {
 	public static void fileWriter(vertex[] vertices, edge[] edges) throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("C:\\\\Users\\\\lenovo\\\\Desktop\\\\graphInfo.txt", "UTF-8");
 		writer.println(vertices.length);
-		for(int k = 0 ; k < vertices.length ; k++)
-			writer.println(vertices[k]);
+		for(int k = 0 ; k < vertices.length ; k++) {
+			writer.println(vertices[k].name);
+			writer.println(vertices[k].ID);
+		}
 		writer.println(edges.length);
 		for(int i = 0 ; i < edges.length; i++) {
-			if(i < edges.length - 1)
-				writer.println(edges[i]);
-			else
-				writer.print(edges[i]);
+			if(i < edges.length - 1) {
+				writer.println(edges[i].src);
+				writer.println(edges[i].dst);
+			}
+			else {
+				writer.println(edges[i].src);
+				writer.print(edges[i].dst);
+			}
 		}
 		writer.close();
 	}
